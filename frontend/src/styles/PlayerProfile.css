@@ -1,0 +1,274 @@
+/* PlayerProfile.css - Modern, Professional Sports UI */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --wp-bg: #ffffff;
+    --wp-section-bg: #f8f9fa;
+    --wp-border: #dee2e6;
+    --wp-text-main: #202122;
+    --wp-text-secondary: #54595d;
+    --wp-accent: #3366cc;
+    --wp-accent-hover: #2a4b8d;
+    --wp-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.player-profile-page {
+    background-color: var(--wp-bg);
+    color: var(--wp-text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Sticky Navbar */
+.player-sub-navbar {
+    position: sticky;
+    top: 70px; /* Below main navbar */
+    z-index: 900;
+    background: rgba(15, 15, 20, 0.8);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    padding: 5px 0;
+}
+
+.player-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.player-nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.player-nav-links::-webkit-scrollbar {
+    display: none;
+}
+
+.player-nav-links li {
+    flex-shrink: 0;
+}
+
+.player-nav-links button {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.player-nav-links button:hover {
+    color: white;
+}
+
+.player-nav-links button.active {
+    color: var(--neon-cyan);
+}
+
+.player-nav-links button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 60%;
+    height: 3px;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 10px var(--neon-cyan);
+    border-radius: 50px;
+}
+
+/* Hero Section */
+.profile-hero {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.player-image-container {
+    background: var(--wp-section-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--wp-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--wp-border);
+}
+
+.player-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Info Card */
+.player-info-card {
+    border: 1px solid var(--wp-border);
+    border-radius: 12px;
+    padding: 30px;
+    background: #fff;
+    box-shadow: var(--wp-shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.player-team-role {
+    color: var(--wp-text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.info-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--wp-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Sections */
+.profile-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--wp-border);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--wp-accent);
+}
+
+.bio-content p {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+/* Stats Table */
+.stats-table-wrapper {
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--wp-border);
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.stats-table th {
+    background: var(--wp-section-bg);
+    padding: 15px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--wp-text-secondary);
+    border-bottom: 2px solid var(--wp-border);
+}
+
+.stats-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--wp-border);
+}
+
+.stats-table tr:hover {
+    background-color: #fcfcfc;
+}
+
+/* Gallery */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--wp-border);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .profile-hero {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header h1 {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,301 @@
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --neon-cyan: #00f2ff;
+    --neon-magenta: #ff00ff;
+    --gold: #FFD700;
+}
+
+.rankings-container-2026 {
+    background: radial-gradient(circle at 50% -20%, #1a1a2e, #0a0a0f);
+    padding: 0 0 100px;
+}
+
+/* Hero Section */
+.rankings-hero {
+    position: relative;
+    padding: 80px 20px 40px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent, var(--neon-cyan)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px var(--accent-glow, rgba(0, 242, 255, 0.3));
+}
+
+.year-badge {
+    font-size: 1.5rem;
+    background: var(--accent);
+    color: #000;
+    padding: 4px 15px;
+    border-radius: 50px;
+    vertical-align: middle;
+    margin-left: 10px;
+    font-weight: 800;
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.hero-content p {
+    color: #888;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero-glow {
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+    pointer-events: none;
+}
+
+/* Grid Layout */
+.rankings-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* Rank Cards */
+.rankings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rank-card {
+    position: relative;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.fade-in .rank-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rank-card:hover {
+    transform: scale(1.02) translateX(10px);
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.rank-number-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.rank-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #333;
+    line-height: 1;
+}
+
+.change-icon {
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.change-icon.up { color: #00ff88; }
+.change-icon.down { color: #ff3e3e; }
+.change-icon.none { color: #666; }
+
+.player-team-info {
+    flex: 1;
+}
+
+.main-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.main-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.team-badge-pill {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.sub-info {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.rating-display {
+    text-align: right;
+}
+
+.rating-label {
+    font-size: 0.7rem;
+    color: #666;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+}
+
+.rating-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+}
+
+/* Premium Styling for Top Ranks */
+.rank-card.premium {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.rank-card.premium .rank-value {
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.rank-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gold);
+    box-shadow: 0 0 15px var(--gold);
+}
+
+.crown-icon {
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    font-size: 2.5rem;
+    opacity: 0.2;
+    transform: rotate(15deg);
+}
+
+.card-glass-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.rank-card:hover .card-glass-glow {
+    transform: translateX(100%);
+}
+
+/* Sidebar */
+.trend-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 25px;
+    position: sticky;
+    top: 250px;
+}
+
+.trend-card h4 {
+    margin: 0 0 20px;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: var(--neon-cyan);
+}
+
+.trend-item {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trend-item:last-child { border: none; }
+
+.trend-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+/* Footer */
+.rankings-footer {
+    text-align: center;
+    padding-top: 60px;
+    color: #444;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 992px) {
+    .rankings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rankings-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .rank-card {
+        padding: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .rating-display {
+        width: 100%;
+        text-align: left;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
