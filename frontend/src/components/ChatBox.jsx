@@ -48,7 +48,8 @@ function ChatBox() {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
       const token = userInfo?.token;
       
-      const response = await fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000/api"}/chat/stream`, {
+      const apiBaseURL = process.env.NODE_ENV === "production" ? "/api" : (process.env.REACT_APP_API_URL || "http://localhost:5000/api");
+      const response = await fetch(`${apiBaseURL}/chat/stream`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 const express = require("express");
 const Player = require("../models/Player");
 const { protect } = require("../middleware/authMiddleware");
+const aiService = require("../services/aiService");
 
 const router = express.Router();
 
@@ -16,6 +17,28 @@ router.post("/", protect, async (req, res) => {
     res.status(201).json(savedPlayer);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+/**
+ * @route   POST /api/players/search-ai
+ * @desc    Search player details using AI
+ */
+router.post("/search-ai", async (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ message: "Player name is required" });
+  }
+
+  try {
+    const playerData = await aiService.fetchPlayerFromGroq(name);
+    if (!playerData) {
+      return res.status(500).json({ message: "AI Service returned no data. Check backend logs for Groq errors." });
+    }
+    res.json(playerData);
+  } catch (error) {
+    console.error("AI Search Error:", error);
+    res.status(500).json({ message: "Internal server error during AI search" });
   }
 });
 

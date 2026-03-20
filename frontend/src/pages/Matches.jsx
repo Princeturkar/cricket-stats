@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import API from "../services/api";
 import MatchCard from "../components/MatchCard";
 
-const socket = io("http://localhost:5000");
+const socket = io(process.env.NODE_ENV === "production" ? window.location.origin : "http://localhost:5000");
 
 function Matches() {
   const [matches, setMatches] = useState([]);

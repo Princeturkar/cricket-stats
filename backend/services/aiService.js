@@ -230,6 +230,55 @@ Guidelines:
             console.error("Groq streaming error:", error.message);
         }
     }
+    async fetchPlayerFromGroq(playerName) {
+        try {
+            if (!process.env.GROK_API_KEY) return null;
+
+            const prompt = `You are an expert Cricket Statistician. Fetch professional information for the cricket player: "${playerName}".
+            
+            IMPORTANT: Return ONLY a valid JSON object with NO markdown formatting, NO code blocks, and NO extra text.
+            The JSON must match this structure exactly:
+            {
+              "name": "Full Name",
+              "team": "Current Team or Country",
+              "role": "Batsman/Bowler/All-rounder/Wicketkeeper",
+              "nationality": "Country",
+              "dob": "Month DD, YYYY",
+              "battingStyle": "Right/Left-handed",
+              "bowlingStyle": "Bowling style",
+              "jerseyNumber": "Number",
+              "matches": 0,
+              "runs": 0,
+              "wickets": 0,
+              "battingAvg": 0.0,
+              "strikeRate": 0.0,
+              "bowlingEcon": 0.0,
+              "highScore": 0,
+              "bestBowling": "W/R",
+              "fifties": 0,
+              "hundreds": 0,
+              "odi": { "matches": 0, "runs": 0, "avg": 0, "sr": 0, "hundreds": 0, "fifties": 0, "wickets": 0, "highScore": 0, "best": "W/R" },
+              "test": { "matches": 0, "runs": 0, "avg": 0, "sr": 0, "hundreds": 0, "fifties": 0, "wickets": 0, "highScore": 0, "best": "W/R" },
+              "ipl": { "matches": 0, "runs": 0, "avg": 0, "sr": 0, "hundreds": 0, "fifties": 0, "wickets": 0, "highScore": 0, "best": "W/R" },
+              "description": "Brief professional summary"
+            }
+
+            If data is unavailable for a specific field, use appropriate defaults: 0 for numbers, "" for strings, and "0/0" for best bowling.
+            Use the latest available data as of ${this.currentDate}.`;
+
+            const completion = await openai.chat.completions.create({
+                model: this.model,
+                messages: [{ role: "user", content: prompt }],
+                response_format: { type: "json_object" }
+            });
+
+            const text = completion.choices[0].message.content.trim();
+            return JSON.parse(text);
+        } catch (error) {
+            console.error("Groq fetch player error:", error.message);
+            return null;
+        }
+    }
 }
 
 module.exports = new AIService();

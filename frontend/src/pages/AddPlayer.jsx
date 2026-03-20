@@ -30,8 +30,42 @@ function AddPlayer() {
     test: { matches: "", runs: "", avg: "", sr: "", hundreds: "", fifties: "", wickets: "", best: "" },
     description: ""
   });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const handleAISearch = async () => {
+    if (!searchQuery.trim()) {
+      setError("Please enter a player name to search.");
+      return;
+    }
+
+    setIsSearching(true);
+    setError("");
+
+    try {
+      const response = await API.post("/players/search-ai", { name: searchQuery });
+      const playerData = response.data;
+
+      // Update basic fields
+      setFormData(prev => ({
+        ...prev,
+        ...playerData,
+        // Ensure sub-objects are merged correctly if AI didn't provide everything
+        odi: { ...prev.odi, ...(playerData.odi || {}) },
+        test: { ...prev.test, ...(playerData.test || {}) }
+      }));
+      
+      alert(`Successfully fetched details for ${playerData.name || searchQuery}! Review and save.`);
+    } catch (err) {
+      console.error("AI Search Error Details:", err);
+      const msg = err.response?.data?.message || err.message || "Unknown error occurred";
+      setError(`AI Search Error: ${msg}`);
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +95,52 @@ function AddPlayer() {
   return (
     <div className="auth-card" style={{ maxWidth: '800px', margin: '20px auto' }}>
       <h2>Add New Professional Player</h2>
-      {error && <p className="error-msg">{error}</p>}
+      {error && <p className="error-msg" style={{ color: '#ff4d4d', background: 'rgba(255, 77, 77, 0.1)', padding: '10px', borderRadius: '5px', marginBottom: '15px' }}>{error}</p>}
+      
+      {/* AI Search Section */}
+      <div className="ai-search-container" style={{ 
+        background: 'rgba(57, 255, 20, 0.05)', 
+        border: '1px solid rgba(57, 255, 20, 0.2)', 
+        padding: '20px', 
+        borderRadius: '12px', 
+        marginBottom: '30px' 
+      }}>
+        <h3 style={{ marginTop: 0, color: '#39ff14', fontSize: '1.1rem' }}>✨ AI Instant Stats Fetcher</h3>
+        <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '15px' }}>
+          Search for any cricketer to automatically populate their professional profile using Groq AI.
+        </p>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <input 
+            type="text" 
+            placeholder="Search Player (e.g. Virat Kohli or Jasprit Bumrah)..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ 
+              flex: 1, 
+              padding: '12px', 
+              borderRadius: '8px', 
+              border: '1px solid rgba(255,255,255,0.1)', 
+              background: 'rgba(255,255,255,0.05)',
+              color: 'white'
+            }}
+          />
+          <button 
+            type="button" 
+            onClick={handleAISearch} 
+            disabled={isSearching}
+            className="auth-btn"
+            style={{ 
+              width: '180px', 
+              margin: 0, 
+              background: isSearching ? '#555' : 'linear-gradient(45deg, #39ff14, #10b981)',
+              boxShadow: isSearching ? 'none' : '0 0 15px rgba(57, 255, 20, 0.3)'
+            }}
+          >
+            {isSearching ? "🔍 Searching..." : "🚀 Fetch Stats"}
+          </button>
+        </div>
+      </div>
+      
       <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
         
         <h3 style={{ gridColumn: 'span 2', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Basic Information</h3>
