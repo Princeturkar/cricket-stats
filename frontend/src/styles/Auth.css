@@ -8,15 +8,15 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
 
+}
 .stadium-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     linear-gradient(
       135deg,
       rgba(10, 26, 58, 0.8) 0%,
@@ -36,7 +36,7 @@
   right: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     radial-gradient(ellipse 500px 400px at 50% -10%, rgba(255, 150, 0, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse 600px 300px at 10% 50%, rgba(0, 150, 255, 0.1) 0%, transparent 50%),
     radial-gradient(ellipse 600px 300px at 90% 50%, rgba(255, 100, 0, 0.08) 0%, transparent 50%);
@@ -51,27 +51,64 @@
   right: 0;
   width: 100%;
   height: 30%;
-  background: 
+  background:
     radial-gradient(circle at 50% 0%, rgba(255, 200, 50, 0.2) 0%, transparent 60%),
     radial-gradient(circle at 20% 0%, rgba(255, 100, 50, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 0%, rgba(255, 100, 50, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
-.auth-card {
-  background: rgba(30, 30, 30, 0.85);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 123, 255, 0.3);
+
+
+/* Logo container */
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.logo img {
+  width: 80px;
+  height: auto;
+}
+
+/* Card overlay for subtle texture */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.02);
   border-radius: 20px;
-  padding: 50px 40px;
+  pointer-events: none;
+}
+
+/* Remember me checkbox */
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: #ddd;
+  font-size: 0.95rem;
+}
+.remember-me input {
+  width: 16px;
+  height: 16px;
+}
+
+/* Ensure floating ball stays within container */
+.auth-card {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 60px 45px;
   width: 100%;
-  max-width: 420px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  max-width: 440px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 2px 2px rgba(255, 255, 255, 0.15);
   z-index: 10;
   position: relative;
-  animation: slideUp 0.6s ease-out;
+  animation: slideUp 0.7s ease-out;
+  background: linear-gradient(135deg, rgba(30,30,30,0.6), rgba(20,20,20,0.8));
+  overflow: hidden;
 }
 
 @keyframes slideUp {
@@ -148,25 +185,25 @@ form {
 }
 
 .login-btn {
-  padding: 14px 28px;
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  color: white;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+  color: #fff;
   border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.4);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .login-btn:hover {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(34, 197, 94, 0.5);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(52, 211, 153, 0.6);
 }
 
 .login-btn:active {
@@ -216,30 +253,58 @@ form {
 
 @media (max-width: 600px) {
   .auth-card {
-    margin: 20px;
-    padding: 40px 25px;
+    margin: 15px;
+    padding: 35px 20px;
   }
 
   .auth-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .input-group input {
-    padding: 12px 14px;
-    font-size: 0.95rem;
+    padding: 10px 12px;
+    font-size: 0.9rem;
   }
 
   .login-btn {
-    padding: 12px 24px;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 0.95rem;
   }
 
   .auth-footer {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .footer-link {
     width: 100%;
   }
+}
+/* Animated gradient background */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating cricket ball */
+.floating-ball {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #fff 30%, #ff3 70%);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255,255,255,0.6);
+  animation: floatBall 8s linear infinite;
+  z-index: 5;
+}
+
+@keyframes floatBall {
+  0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+  25% { transform: translateX(-30%) translateY(30vh) rotate(90deg); }
+  50% { transform: translateX(0%) translateY(60vh) rotate(180deg); }
+  75% { transform: translateX(30%) translateY(30vh) rotate(270deg); }
+  100% { transform: translateX(-50%) translateY(0) rotate(360deg); }
 }

@@ -41,7 +41,13 @@ function Login() {
       backgroundAttachment: 'fixed'
     }}>
       <div className="stadium-background"></div>
+
+      <div className="floating-ball"></div>
       <div className="auth-card">
+        <div className="card-overlay"></div>
+        <div className="logo">
+          <img src="/logo.svg" alt="Cricket Arena" />
+        </div>
         <div className="auth-header">
           <h1>🏏 Cricket Arena</h1>
           <p>Login to continue</p>
@@ -67,6 +73,10 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)} 
               required 
             />
+          </div>
+          <div className="remember-me">
+            <input type="checkbox" id="remember" />
+            <label htmlFor="remember">Remember me</label>
           </div>
           <button type="submit" className="login-btn">Login</button>
         </form>
