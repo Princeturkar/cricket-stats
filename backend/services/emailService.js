@@ -1,7 +1,34 @@
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 
 const sendEmail = async (options) => {
-  // Check if email credentials are provided
+  // 1. If Resend API key is present, use HTTP API (bypasses SMTP blocking)
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const response = await axios.post(
+        "https://api.resend.com/emails",
+        {
+          from: "Cricket Arena <onboarding@resend.dev>",
+          to: options.email,
+          subject: options.subject,
+          html: options.html || `<p>${options.message}</p>`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Email sent via Resend:", response.data);
+      return { success: true, messageId: response.data.id };
+    } catch (error) {
+      console.error("Resend API error:", error.response?.data || error.message);
+      throw new Error("Email could not be sent via Resend");
+    }
+  }
+
+  // 2. Fallback: Check if email credentials are provided
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || process.env.EMAIL_USER === "your-email@gmail.com") {
     console.log("---------------------------------------");
     console.log("SIMULATED EMAIL (No credentials found):");
